@@ -302,6 +302,23 @@
   }
 </style>
 
+<style>
+  .toggle-btn {
+    position: absolute;
+    top: 70px;
+  }
+</style>
+
+<div>
+  <button class="toggle-btn" (click)="toggle()">toggle</button>
+</div>
+<ng-container *ngIf="childComponentLoaded">
+  <template #childComponent></template>
+</ng-container>
+
+
+<ng-container *ngIf="!childComponentLoaded">
+
 <!-- Toolbar -->
 <div class="toolbar" role="banner">
   <img
@@ -482,3 +499,4 @@
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
 <router-outlet></router-outlet>
+</ng-container>
