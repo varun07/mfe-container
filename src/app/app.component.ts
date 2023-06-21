@@ -12,22 +12,24 @@ export class AppComponent {
   childComponentLoaded = false;
 
   ngOnInit() {
-    this.loadFrontend1Component();
+
   }
 
-  loadFrontend1Component() {
-    import('mfe1/Component').then(m => {
-      console.log(m.AppComponent);
-      this.component = m.AppComponent;
+  async loadFrontend1Component() {
+    return import('mfe1/OrdersComponent').then(m => {
+      console.log(m.OrdersComponent);
+      this.component = m.OrdersComponent;
     })
-
-
   }
 
   toggle() {
     this.childComponentLoaded = !this.childComponentLoaded;
-    setTimeout(() => {
-      if(this.childComponentLoaded && this.component) {
+    setTimeout(async () => {
+
+      if(this.childComponentLoaded) {
+        if(!this.component) {
+          await this.loadFrontend1Component();
+        }
         const componentRef = this.viewContainer.createComponent(this.component);
         (componentRef.instance as any).appControllerName = 'container app';
       }
